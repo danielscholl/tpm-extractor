@@ -31,7 +31,7 @@ $RELEASE="20190927.1"
 $ID_SCOPE="<your_idscope>"
 $REGISTRATION="edge-gateway"
 
-. {Invoke-WebRequest -useb https://github.com/danielscholl/tpm-extractor/releases/download/$RELEASE/build.zip -Outfile tpm-extractor.zip}
+. {Invoke-WebRequest -useb https://github.com/danielscholl/tpm-extractor/releases/download/$RELEASE/windows.zip -Outfile tpm-extractor.zip}
 Expand-Archive -Path ".\tpm-extractor.zip"
 dotnet run tpm-extractor\tpm.dll $ID_SCOPE $REGISTRATION
 
