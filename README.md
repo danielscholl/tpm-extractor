@@ -13,30 +13,51 @@ Usage: [sudo] dotnet tpm.dll \<RegistrationId\> \<IdScope\>
 
 *Note*: Run this 'As Administrator' (Windows Powershell) or 'SUDO' (Linux)
 
-## Execution
+## Install IoT Edge Runtime and Provision using TPM Flow
 
-1. Run this application
-2. Retrieve an Endorsement key for your device
-3. Switch to the Azure Portal
-4. In Azure Device Provisioning Service under 'Manage enrollments' select 'Individual Enrollments'
-5. Select 'Add individual enrollment' and fill in:
+1. Download the IoT Edge Runtime
+2. Run TPM Extractor
+3. Retrieve the Endorsement Key for your device
+4. Switch to the Azure Portal
+5. In Azure Device Provisioning Service under 'Manage enrollments' select 'Individual Enrollments'
+6. Select 'Add individual enrollment' and fill in:
     1. Mechanism 'TPM'
     2. Endorsement key
     3. Registration Id
-6. Save the individual enrollment
+7. Save the individual enrollment
+8. Install the Security Daemon
 
 
 ```powershell
-$RELEASE="20190927.1"
-$ID_SCOPE="<your_idscope>"
-$REGISTRATION="edge-gateway"
+#  Download IoT Edge Runtime (Reboot Required)
+. {Invoke-WebRequest -useb https://aka.ms/iotedge-win} | Invoke-Expression; Deploy-IoTEdge
 
+# Download TPM Extractor
+$RELEASE="20190927.5"
 . {Invoke-WebRequest -useb https://github.com/danielscholl/tpm-extractor/releases/download/$RELEASE/windows.zip -Outfile tpm-extractor.zip}
 Expand-Archive -Path ".\tpm-extractor.zip"
+
+# Execute TPM Extractor
 ./tpm-extractor/tpm-extractor
 
+# Copy & Paste Variables from Output
+# -----------------------------------------------------------------------------------------------------
+$EndorsementKey="<your_ekpublic>"
+$RegistrationId="<your_registrationid>"
+# -----------------------------------------------------------------------------------------------------
+
+
+# Install Edge Runtime using DPS with the TPM
+$ID_SCOPE="<your_idscope>"
 . {Invoke-WebRequest -useb aka.ms/iotedge-win} | Invoke-Expression; `
-Install-SecurityDaemon -Dps -ContainerOs Linux -ScopeId $ID_SCOPE -RegistrationId $REGISTRATION_ID
+Install-SecurityDaemon -Dps -ContainerOs Windows -ScopeId $ID_SCOPE -RegistrationId $RegistrationId
+
+
+# Setup Docker Host Enviornment
+[System.Environment]::SetEnvironmentVariable("DOCKER_HOST", "npipe:////./pipe/iotedge_moby_engine", [System.EnvironmentVariableTarget]::Machine)
+
+
+# Configure
 ```
 
 ## Exceptions

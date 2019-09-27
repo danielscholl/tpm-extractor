@@ -38,13 +38,13 @@ namespace iot_extractor
             {
                 Console.WriteLine();
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.Write("\t$EndorsementKey=\"");
+                Console.Write("$EndorsementKey=\"");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.Write("{0}", Convert.ToBase64String(security.GetEndorsementKey()));
                 Console.Write("\"");
                 Console.WriteLine(Environment.NewLine);
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.Write("\t$RegistrationId=\"");
+                Console.Write("$RegistrationId=\"");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.Write("{0}", security.GetRegistrationID());
                 Console.Write("\"");
