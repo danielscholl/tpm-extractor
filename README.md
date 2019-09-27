@@ -1,6 +1,6 @@
 # tpm-extractor
 
-[![Build Status](https://dascholl.visualstudio.com/IoT/_apis/build/status/danielscholl.tpm-extractor?branchName=master)](https://dascholl.visualstudio.com/IoT/_build/latest?definitionId=50&branchName=master)
+[![Build Status](https://dascholl.visualstudio.com/IoT/_apis/build/status/danielscholl.tpm-extractor?branchName=master)](https://dascholl.visualstudio.com/IoT/_build/latest?definitionId=51&branchName=master)
 
 Retrieve a TPM 2.0 Enrollment Key to be used with the Azure Device Provisioning Service.
 
