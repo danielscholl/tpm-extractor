@@ -33,7 +33,7 @@ $REGISTRATION="edge-gateway"
 
 . {Invoke-WebRequest -useb https://github.com/danielscholl/tpm-extractor/releases/download/$RELEASE/windows.zip -Outfile tpm-extractor.zip}
 Expand-Archive -Path ".\tpm-extractor.zip"
-dotnet run tpm-extractor\tpm.dll $ID_SCOPE $REGISTRATION
+./tpm-extractor/tpm-extractor
 
 . {Invoke-WebRequest -useb aka.ms/iotedge-win} | Invoke-Expression; `
 Install-SecurityDaemon -Dps -ContainerOs Linux -ScopeId $ID_SCOPE -RegistrationId $REGISTRATION_ID
